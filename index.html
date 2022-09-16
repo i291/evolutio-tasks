@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> 1.zadatak - Rock, Paper, Scissors </h1>
+    <h2 style="color:crimson">Lets play a rock, paper, scissors game with me!</h2>
+    <button class="options">Rock</button>
+    <button class="options">Paper</button>
+    <button class="options">Scissors</button>
+    <script>
+        const options = document.querySelectorAll(".options");
+        var brojac = 0;
+        options.forEach((option) => {
+            option.addEventListener("click", function () {
+                const igrac = this.textContent;
+                const opcije = ["Rock", "Paper", "Scissors"];
+                const racunalo = opcije[Math.floor(Math.random() * 3)];
+                compareInputs(igrac, racunalo);
+            });
+        });
+        function compareInputs(igrac, racunalo) {
+            const trenutno = `${igrac} vs ${racunalo}`;
+            if (igrac === racunalo) {
+                alert(`${trenutno} izjednačeno`);
+                return;
+            }
+            if (igrac === "Rock") {
+                if (racunalo === "Scissors") {
+                    brojac++;
+                    alert(`${trenutno} = Bravo, pobjedio si` + ", broj osvojenih bodova: " + brojac);
+                } else {
+                    alert(`${trenutno} = Nažalost, računalo je pobjedilo`);
+                }
+            }
+            else if (igrac === "Paper") {
+                if (racunalo === "Rock") {
+                    brojac++;
+                    alert(`${trenutno} = Bravo, pobjedio si` + ", broj osvojenih bodova: " + brojac);
+                } else {
+                    alert(`${trenutno} = Nažalost, računalo je pobjedilo`);
+                }
+            }
+            else {
+                if (racunalo === "Paper") {
+                    brojac++;
+                    alert(`${trenutno} = Bravo, pobjedio si` + ", broj osvojenih bodova: " + brojac);
+                } else {
+                    alert(`${trenutno} = Nažalost, računalo je pobjedilo`);
+                }
+            }
+        }
+    </script>
+    <br>
+    <br>
+    <h1> 2. zadatak- Palindrom </h1>
+    <h2 style="color:darkblue">Unesi text kako bi računalo provjerilo jeli uneseni text palindrom ili nije.</h2> <br>
+    <input type="text" id="unos"> <button id="provjera">Provjeri</button>
+    <script>
+        document.getElementById("provjera").addEventListener("click", p);
+        function p() {
+            let unos = document.getElementById("unos").value;
+            // REGEX
+            // ^ - nije,
+            // g - uzima sva pojavljivanja a ne samo 1. (global)
+            // i - nije osjetljivo na velika i mala slova, uzima i velika i mala slova (bitno da su slova)
+            let r = unos.replace(/[^a-z]/gi, '');
+            r = r.toLowerCase();
+            var reverse = r.split('').reverse().join('');
+            if (r == reverse) {
+                alert("Palindrom")
+            } else { alert("Nije palindrom") }
+            document.getElementById("unos").value = "";
+        }
+    </script>
+
+    </script>
+    <br>
+    <br>
+    <h1> 3. zadatak- Problem ruksaka </h1>
+    <h2 style="color:darkmagenta">Minimum brojeva za dobit danu sumu (also known as a knapsack problem).</h2> <br>
+    <label for="" id="ispis"></label><br>
+    <button id="izracun">Izračunaj</button>
+    <script>
+        document.getElementById("izracun").addEventListener("click", a);
+        function a() {
+            var arr = [2,5,1,4,6];
+            var sum = 5;
+            var n=arr.length;
+            function f(arr, n, v,sum) {
+                if (sum == 0) {
+                    return v.length;
+                }
+                if (sum < 0)
+                    return Number.MAX_VALUE;
+                if (n == 0)
+                    return Number.MAX_VALUE;
+                let x = f(
+                    arr,
+                    n - 1, v, sum);
+                v.push(arr[n - 1]);
+
+                let y = f(
+                    arr, n, v,
+                    sum - arr[n - 1]);
+                v.pop(v.length - 1);
+                return Math.min(x, y);
+            }
+            function b(arr,
+                n, sum) {
+                let v = [];
+                return f(arr, n,
+                    v, sum);
+            }
+            document.getElementById("ispis").innerHTML = b(arr,n,sum);
+        }
+    </script>
+</body>
+
+</html>
